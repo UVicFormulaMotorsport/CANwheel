@@ -25,7 +25,7 @@ F_CPU   = 16000000L
 ################################################################################
 # Compiler Options
 ################################################################################
-TARGET       = at90can32
+TARGET       = atmega16m1
 OPTIMIZATION = s
 STANDARD     = c11
 
@@ -34,7 +34,7 @@ STANDARD     = c11
 # Programmer Options
 ################################################################################
 PROGRAMMER         = arduino
-PROGRAMMER_PART    = c32
+PROGRAMMER_PART    = m16m1
 PROGRAMMER_PORT    = /dev/cu.usbmodem*
 PROGRAMMER_OPTIONS = -b 19200
 
