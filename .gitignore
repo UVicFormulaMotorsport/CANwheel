@@ -1,3 +1,7 @@
+hardware/design/__Previews/
+hardware/design/History/
+hardware/design/debug.log
+
 # Object files
 *.o
 *.ko
