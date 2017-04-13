@@ -28,7 +28,7 @@ DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
 FSMCodingStyle=eFMSDropDownList_OneProcess
 FSMEncodingStyle=eFMSDropDownList_OneHot
-OutputPath=
+OutputPath=Project Outputs for CANwheel
 LogFolderPath=
 ManagedProjectGUID=
 LinkedManagedProjectGUID=
@@ -197,7 +197,7 @@ AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
 AnnotateScope=All
-AnnotateOrder=-1
+AnnotateOrder=6
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
@@ -241,9 +241,17 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=KRJRDWAO
 
+[GeneratedDocument1]
+DocumentPath=..\release\UV17-B\bom\Bill of Materials-CANwheel.csv
+DItemRevisionGUID=
+
+[GeneratedDocument2]
+DocumentPath=Project Outputs for CANwheel\Design Rule Check - CANwheel.html
+DItemRevisionGUID=
+
 [Parameter1]
 Name=ProjectRevision
-Value=A
+Value=B
 
 [Parameter2]
 Name=ProjectCar
@@ -260,7 +268,7 @@ ContentTypeGUID=CB6F2064-E317-11DF-B822-12313F0024A2
 ConfigurationType=Source
 
 [Generic_EDE]
-OutputDir=
+OutputDir=Project Outputs for CANwheel
 
 [OutputGroup1]
 Name=Netlist Outputs
@@ -953,7 +961,7 @@ Type75=1
 Type76=1
 Type77=1
 Type78=1
-Type79=1
+Type79=0
 Type80=1
 Type81=1
 Type82=1
