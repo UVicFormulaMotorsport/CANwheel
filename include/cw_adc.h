@@ -16,24 +16,17 @@
   this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CANWHEEL_H__
-#define __CANWHEEL_H__
+#ifndef __CW_ADC_H__
+#define __CW_ADC_H__
 
-#define F_CPU 16000000UL
+#include <stdint.h>
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
+#define CW_ADC_INTERVAL 250
 
-#include "cw_adc.h"
-#include "cw_can.h"
-#include "cw_io.h"
-#include "cw_leds.h"
+void cw_adc_init(void);
 
-/* Check inputs every 10 ms */
-#define CW_INPUT_INTERVAL 10
+void cw_adc_update(void);
 
-void cw_rpm_set(uint16_t new_rpm);
-void cw_cal_set(uint8_t new_cal);
+uint8_t cw_adc_value(uint8_t input);
 
 #endif

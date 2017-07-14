@@ -16,24 +16,30 @@
   this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CANWHEEL_H__
-#define __CANWHEEL_H__
+#ifndef __CW_CAN_H__
+#define __CW_CAN_H__
 
-#define F_CPU 16000000UL
+/* CAN input status message ID */
+#define CW_CAN_ID 0x500
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
+/* CAN transmit and receive pages */
+#define CW_CAN_PAGE_RX 0
+#define CW_CAN_PAGE_TX 1
 
-#include "cw_adc.h"
-#include "cw_can.h"
-#include "cw_io.h"
-#include "cw_leds.h"
+/*
+  CAN message interval (in milliseconds)
 
-/* Check inputs every 10 ms */
-#define CW_INPUT_INTERVAL 10
+  The input status messages will be sent after every interval using the counter
+  from Timer/Counter1.
 
-void cw_rpm_set(uint16_t new_rpm);
-void cw_cal_set(uint8_t new_cal);
+  Default is 100 ms for a 10 Hz update rate
+*/
+#define CW_CAN_INTERVAL 100
+
+void cw_can_init(void);
+
+void cw_can_send(uint8_t page, uint16_t id, volatile uint8_t msg[], uint8_t len);
+
+void cw_can_send_inputs(void);
 
 #endif
