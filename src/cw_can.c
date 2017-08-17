@@ -84,7 +84,21 @@ cw_can_send_inputs(void)
 		
 	msg[1] = (PINC & (1 << PINC6)) > 0;
 	msg[3] = (PINC & (1 << PINC0)) > 0;
+	
+	
+	msg[5] = (PINC & (1 << PINC5)) > 0; // input 1 
+	msg[7] = (PINC & (1 << PINC0)) > 0; //input 7
+	
+	//From there, if Input 1 is triggered, I want to set the PDU channel 30 high 
+	//(for some period of time) ,
+	
+	//	and if Input 7 is triggered I want to set PDU Channel 32 high 
+	//(for some period of time)
+	
+	
+	
 	cw_can_send(1, 0x400, msg, 8);
+	
 	
 		/*
 	msg[1] = cw_io_value(1);

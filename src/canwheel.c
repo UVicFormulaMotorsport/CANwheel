@@ -172,3 +172,13 @@ ISR(TIMER1_COMPA_vect)
 		cw_input_trigger = 1;
 	}
 }
+
+//set timer up into PDU
+// 
+// learn AVR
+//
+//1 pin pdu to power solenoids
+// two pins to 
+//if in life cal there is a way to turn button press into arbitraty outputs based on table, timer
+//rerig one of the functions (antilag?) 
+//
