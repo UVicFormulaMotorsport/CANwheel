@@ -48,7 +48,7 @@ cw_io_update(void)
 	
 	if (PIND & (1 << PIND0)){
 		cw_io_values |= 0x40;
-		flag7 = 1;
+		flag2 = 0;
 	}
 	else {
 		cw_io_values &= ~0x40;
@@ -67,10 +67,5 @@ cw_io_value(uint8_t input)
 uint8_t
 cw_io_flags(uint8_t flag)
 {
-	if (flag == 2){
-		return flag2;
-	}
-	if (flag ==7){
-		return flag7;
-	}
+	return flag2;
 }

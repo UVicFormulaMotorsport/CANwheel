@@ -23,6 +23,7 @@ volatile uint8_t cw_adc_trigger = 0;
 volatile uint8_t cw_can_clock = 0;
 volatile uint8_t cw_can_trigger = 0;
 volatile uint8_t cw_input_clock = 0;
+volatile uint8_t cw_lightshow_clock = 0;
 volatile uint8_t cw_input_trigger = 0;
 
 volatile uint16_t rpm = 0xFFFF;
@@ -66,55 +67,52 @@ main(void)
 	sei();
 	//if button is pressed and flag  = 0
 	
-	while(cw_io_flags(2) ==1){
-		rpm = 0;
-		// create rpm array, define size []
-		//rpmVal[2048] = [,,,,,]
-		//make unsigned int
-		for (i = 0; i <= 243; i++) {
-			rpm = rpmVal[i];
-				/* Update shift LEDs */
-				if (rpm == 0) {
-					cw_leds_set_off(1);
-					cw_leds_update();
+	while(1){
+		//rpm = rpmVal[i];
+		if (cw_input_trigger) {
+			cw_io_update();
+			cw_input_trigger = 0;
+		}		
 
-				} 
-				else {
-					cw_leds_set_off(0);
-					
-					if (rpm >= 12500) {
-						cw_leds_set_blink(1);
-					} 
+			/* Update shift LEDs */
+		if (rpm == 0) {
+			cw_leds_set_off(1);
+			cw_leds_update();
+			} 
+		else {
+			cw_leds_set_off(0);
+		
+			if (rpm >= 12500) {
+				cw_leds_set_blink(1);
+			} 
 
-					else {
-						cw_leds_set_blink(0);
-						
-						if      (rpm >= 12000) cw_leds_set_shift(12);
-						else if (rpm >= 11000) cw_leds_set_shift(11);
-						else if (rpm >= 10000) cw_leds_set_shift(10);
-						else if (rpm >= 9000)  cw_leds_set_shift(9);
-						else if (rpm >= 8000)  cw_leds_set_shift(8);
-						else if (rpm >= 7000)  cw_leds_set_shift(7);
-						else if (rpm >= 6000)  cw_leds_set_shift(6);
-						else if (rpm >= 5000)  cw_leds_set_shift(5);
-						else if (rpm >= 4000)  cw_leds_set_shift(4);
-						else if (rpm >= 3000)  cw_leds_set_shift(3);
-						else if (rpm >= 2000)  cw_leds_set_shift(2);
-						else if (rpm >= 1000)  cw_leds_set_shift(1);
-					}
-				}
+			else {
+				cw_leds_set_blink(0);
 				
-				cw_leds_update();
-				_delay_ms(5);
+				if      (rpm >= 12000) cw_leds_set_shift(12);
+				else if (rpm >= 11000) cw_leds_set_shift(11);
+				else if (rpm >= 10000) cw_leds_set_shift(10);
+				else if (rpm >= 9000)  cw_leds_set_shift(9);
+				else if (rpm >= 8000)  cw_leds_set_shift(8);
+				else if (rpm >= 7000)  cw_leds_set_shift(7);
+				else if (rpm >= 6000)  cw_leds_set_shift(6);
+				else if (rpm >= 5000)  cw_leds_set_shift(5);
+				else if (rpm >= 4000)  cw_leds_set_shift(4);
+				else if (rpm >= 3000)  cw_leds_set_shift(3);
+				else if (rpm >= 2000)  cw_leds_set_shift(2);
+				else if (rpm >= 1000)  cw_leds_set_shift(1);
+			}
+		}
+				
+		cw_leds_update();
 
 			
-			if(rpm >= 12000){
-				rpm = 0;
-			}
-
-		}
-		
+	if(rpm >= 12000){
+		rpm = 0;
 	}
+
+	}
+		
 	
 	//return 0;
 }
@@ -148,6 +146,7 @@ ISR(TIMER1_COMPA_vect)
 	cw_adc_clock++;
 	cw_can_clock++;
 	cw_input_clock++;
+	cw_lightshow_clock++;
 
 	/* Trigger ADC update */
 	if (cw_adc_clock >= CW_ADC_INTERVAL) {
@@ -166,6 +165,22 @@ ISR(TIMER1_COMPA_vect)
 		cw_input_clock = 0;
 		cw_input_trigger = 1;
 	}
+	
+	if(cw_lightshow_clock > 5){
+		if(cw_io_flags(2) == 1){
+			if(++i == 243) {
+				i = 0; //
+				rpm = 0;
+				rpm = rpmVal[i]; 
+			}
+			else{
+				i = 0;
+				rpm =0;
+			}
+			cw_lightshow_clock = 0;
+		}
+	}
+	
 }
 
 //set timer up into PDU
