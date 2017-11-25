@@ -76,7 +76,7 @@ main(void)
 
 			/* Update shift LEDs */
 		if (rpm == 0) {
-			cw_leds_set_off(1);
+			cw_leds_set_shift(0);
 			cw_leds_update();
 			} 
 		else {
@@ -169,16 +169,17 @@ ISR(TIMER1_COMPA_vect)
 	if(cw_lightshow_clock > 5){
 		if(cw_io_flags(2) == 1){
 			if(++i == 243) {
-				i = 0; //
+				i = 0; 
 				rpm = 0;
-				rpm = rpmVal[i]; 
 			}
-			else{
-				i = 0;
-				rpm =0;
-			}
-			cw_lightshow_clock = 0;
+			rpm = rpmVal[i]; 
 		}
+		else{
+			i = 0;
+			rpm =0;
+		}
+		
+		cw_lightshow_clock = 0;
 	}
 	
 }
